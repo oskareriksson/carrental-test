@@ -1,0 +1,29 @@
+{
+  "name": "carrental-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oskareriksson/carrental-test.git"
+  },
+  "author": "Oskar Eriksson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oskareriksson/carrental-test/issues"
+  },
+  "homepage": "https://github.com/oskareriksson/carrental-test#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.26",
+    "mongoose": "^4.9.9",
+    "pug": "^2.0.0-rc.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
