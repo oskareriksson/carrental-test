@@ -17,4 +17,11 @@ router.post("/addcar", (req, res) => {
   });
 });
 
+router.delete("/removecar/:id", (req, res) => {
+  Car.findByIdAndRemove(req.params.id, (error, result) => {
+    if(error) res.send(error);
+    res.send("Car successfully removed from database!");
+  });
+});
+
 module.exports = router;
