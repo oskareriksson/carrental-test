@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const mongodb = require("mongodb");
 const Car = require("../models/Car.js");
+const User = require("../models/User.js");
 
 router.get("/cars", (req, res) => {
   Car.find({}, (error, result) => {
