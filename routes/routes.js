@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const mongodb = require("mongodb");
+const passport = require("passport");
 const Car = require("../models/Car.js");
 const User = require("../models/User.js");
 const ReservedCar = require("../models/ReservedCar.js");
@@ -82,6 +83,21 @@ router.post("/rentcar", (req, res) => {
     res.send(serverResponse);
 
   });
+});
+
+router.post("/register", (req, res) => {
+  User.register(new User({ username: req.body.username }), req.body.password, (error, user) => {
+    if(error) {
+      res.render("register", { user : user});
+    }
+    passport.authenticate("local")(req, res, () => {
+      res.redirect("/");
+    });
+  });
+});
+
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  res.redirect("/");
 });
 
 module.exports = router;
