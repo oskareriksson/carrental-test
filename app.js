@@ -7,11 +7,20 @@ const pug = require("pug");
 const bodyParser = require("body-parser");
 const path = require("path");
 const passport = require("passport");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const routes = require("./routes/routes.js");
 const config = require("./config/config.js");
 
 app.use(bodyParser.urlencoded({
   extended: false
+}));
+
+app.use(cookieParser());
+app.use(session({
+  secret: "super secret",
+  resave: true,
+  saveUninitialized: false
 }));
 
 app.set("view engine", "pug");
