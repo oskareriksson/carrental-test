@@ -5,7 +5,7 @@ const Car = require("../models/Car.js");
 const User = require("../models/User.js");
 const ReservedCar = require("../models/ReservedCar.js");
 
-router.get("/cars", (req, res) => {
+/*router.get("/cars", (req, res) => {
   Car.find({}, (error, result) => {
     res.json(result);
   });
@@ -84,5 +84,5 @@ router.post("/rentcar", (req, res) => {
 
   });
 });
-
+*/
 module.exports = router;

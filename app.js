@@ -13,7 +13,7 @@ const session = require("express-session");
 const config = require("./config/config.js");
 const User = require("./models/User.js");
 const routes = require("./routes/routes.js");
-const userRoutes = require("./routes/users.js")(User);
+const userRoutes = require("./routes/users.js");
 
 app.set("view engine", "pug");
 app.use("/public", express.static("public"));
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 app.use(session({
-  secret: "super secret",
+  secret: "supersecret",
   resave: true,
   saveUninitialized: false
 }));
