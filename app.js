@@ -29,7 +29,7 @@ app.use(session({
 
 app.use(passport.initialize);
 app.use(passport.session);
-passport.user(User.createStrategy());
+passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
