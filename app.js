@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const pug = require("pug");
 const bodyParser = require("body-parser");
 const path = require("path");
+const passport = require("passport");
 const routes = require("./routes/routes.js");
 const config = require("./config/config.js");
 
