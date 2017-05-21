@@ -38,4 +38,11 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
   res.redirect("/");
 });
 
+router.get("/all", isLoggedIn, (req, res) => {
+  User.find({}, "email firstName lastName phoneNumber", (error, result) => {
+    if(error) res.send(error);
+    res.json(result);
+  });
+});
+
 module.exports = router;
