@@ -11,11 +11,15 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const routes = require("./routes/routes.js");
 const config = require("./config/config.js");
+const User = require("./models/User.js");
+
+app.set("view engine", "pug");
+app.use("/public", express.static("public"));
+app.use("/", routes);
 
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-
 app.use(cookieParser());
 app.use(session({
   secret: "super secret",
@@ -23,9 +27,11 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.set("view engine", "pug");
-app.use("/public", express.static("public"));
-app.use("/", routes);
+app.use(passport.initialize);
+app.use(passport.session);
+passport.user(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.url, () => {
