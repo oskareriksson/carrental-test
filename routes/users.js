@@ -14,14 +14,22 @@ router.get("/", (req, res) => {
 
 //Registering a new user and saving the user to database
 router.post("/register", (req, res) => {
-  User.register(new User({ username: req.body.username, password: req.body.password }), req.body.password, (error, user) => {
-    if(error) {
-      res.send(error);
-    }
-    passport.authenticate("local")(req, res, () => {
-      res.redirect("/");
+  User.register(new User(
+    {
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber
+    }), req.body.password, (error, user) => {
+      if(error) {
+        res.send(error);
+      }
+      passport.authenticate("local")(req, res, () => {
+        res.redirect("/");
+      });
     });
-  });
 });
 
 //Login route
