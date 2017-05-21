@@ -3,6 +3,10 @@ const passport = require("passport");
 
 module.exports = (User) => {
 
+  router.get("/", (req, res) => {
+    res.render("index", { user: req.user});
+  });
+
   router.post("/register", (req, res) => {
     User.register(new User({ username: req.body.username }), req.body.password, (error, user) => {
       if(error) {
