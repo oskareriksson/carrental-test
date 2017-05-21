@@ -9,21 +9,6 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/cars", (req, res) => {
-  Car.find({}, (error, result) => {
-    res.json(result);
-  });
-});
-
-router.post("/addcar", (req, res) => {
-  let car = new Car(req.body);
-
-  car.save((error, result) => {
-    if(error) res.send(error);
-    res.json(result);
-  });
-});
-
 router.patch("/updatecar/:id", (req, res) => {
   Car.findByIdAndUpdate(req.params.id,
     {
