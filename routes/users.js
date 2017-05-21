@@ -34,8 +34,8 @@ router.post("/register", (req, res) => {
 
 //Login route
 router.post("/login", passport.authenticate("local"), (req, res) => {
+  console.log("Successfully logged in!");
   res.redirect("/");
 });
-
 
 module.exports = router;
