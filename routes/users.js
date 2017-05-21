@@ -17,6 +17,8 @@ module.exports = (User) => {
   router.post("/login", passport.authenticate("local"), (req, res) => {
     res.redirect("/");
   });
+
+  return router;
 };
 
 const isLoggedIn = (req, res, next) => {
