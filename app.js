@@ -15,6 +15,7 @@ const User = require("./models/User.js");
 const routes = require("./routes/routes.js");
 const userRoutes = require("./routes/users.js");
 const carRoutes = require("./routes/cars.js");
+const reservations = require("./routes/reservations.js");
 
 app.set("view engine", "pug");
 app.use("/public", express.static("public"));
@@ -55,6 +56,7 @@ app.use((req, res, next) => {
 app.use("/", routes);
 app.use("/users", userRoutes);
 app.use("/cars", carRoutes);
+app.use("/reservations", reservations);
 
 app.listen(config.port, () => {
   console.log(`Listening on port ${config.port}`);
