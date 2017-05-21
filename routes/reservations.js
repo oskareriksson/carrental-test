@@ -1,6 +1,9 @@
 const router = require("express").Router();
+const mongodb = require("mongodb");
 const passport = require("passport");
 const ReservedCar = require("../models/ReservedCar.js");
+const Car = require("../models/Car.js");
+const User = require("../models/User.js");
 
 //Function that checks if a user is logged in
 const isLoggedIn = (req, res, next) => {
