@@ -7,9 +7,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  User.register(new User({ username: req.body.username }), req.body.password, (error, user) => {
+  User.register(new User({ username: req.body.username, password: req.body.password }), req.body.password, (error, user) => {
     if(error) {
-      res.render("register", { user : user});
+      res.send(error);
     }
     passport.authenticate("local")(req, res, () => {
       res.redirect("/");
