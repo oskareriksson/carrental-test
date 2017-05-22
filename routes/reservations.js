@@ -15,9 +15,12 @@ router.post("/rentcar", (req, res) => {
   let selectedCar;
   let selectedUser;
 
-  Car.find(
+  Car.findByIdAndUpdate(
+    { _id: reservation.carID },
     {
-      _id: reservation.carID
+      $set: {
+        available: false //Sets the "available" property of our car to false 
+      }
     },
     (error, result) => {
       if(error) res.send(error);
@@ -33,13 +36,13 @@ router.post("/rentcar", (req, res) => {
           selectedUser = result;
           console.log(selectedUser);
 
-          let pricePerDay = selectedCar[0].pricePerDay;
+          let pricePerDay = selectedCar.pricePerDay;
 
-          if(selectedCar[0].roofRack === true){
+          if(selectedCar.roofRack === true){
             pricePerDay += 50;
           }
 
-          if(selectedCar[0].towbar === true){
+          if(selectedCar.towbar === true){
             pricePerDay += 100;
           }
 
