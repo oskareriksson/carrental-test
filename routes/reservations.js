@@ -25,8 +25,15 @@ router.post("/rentcar", (req, res) => {
     (error, result) => {
       if(error) res.send(error);
       selectedCar = result;
-      console.log(selectedCar);
-      
+
+      let pricePerDay = selectedCar.pricePerDay;
+
+      reservation.car.brand = selectedCar.brand;
+      reservation.car.transmission = selectedCar.transmission;
+      reservation.car.seats = selectedCar.seats;
+      reservation.car.roofRack = selectedCar.roofRack;
+      reservation.car.towbar = selectedCar.towbar;
+
       User.find(
         {
           _id: reservation.userID
@@ -34,9 +41,11 @@ router.post("/rentcar", (req, res) => {
         (error, result) => {
           if(error) res.send(error);
           selectedUser = result;
-          console.log(selectedUser);
-
-          let pricePerDay = selectedCar.pricePerDay;
+          
+          reservation.rentedBy.firstName = selectedUser[0].firstName;
+          reservation.rentedBy.lastName = selectedUser[0].lastName;
+          reservation.rentedBy.email = selectedUser[0].email;
+          reservation.rentedBy.phoneNumber = selectedUser[0].phoneNumber;
 
           if(selectedCar.roofRack === true){
             pricePerDay += 50;

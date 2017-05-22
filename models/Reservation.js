@@ -9,7 +9,20 @@ const Reservation = new Schema({
   roofRack: {type: Boolean, required: [true, "Does the user want a roof rack installed? True or false."]},
   towBar: {type: Boolean, required: [true, "Does the user want a tow bar installed? True or false."]},
   pricePerDay: {type: Number},
-  totalPrice: {type: Number}
+  totalPrice: {type: Number},
+  car: {
+    brand: {type: String},
+    transmission: {type: String},
+    seats: {type: Number},
+    roofRack: {type: Boolean},
+    towbar: {type: Boolean},
+  },
+  rentedBy: {
+    firstName: {type: String},
+    lastName: {type: String},
+    email: {type: String},
+    phoneNumber: {type: Number}
+  }
 });
 
 module.exports = mongoose.model("Reservation", Reservation);
