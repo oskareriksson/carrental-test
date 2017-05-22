@@ -48,11 +48,6 @@ mongoose.connection.on("connected", () => {
   console.log("Connection to database established!");
 });
 
-app.use((req, res, next) => {
-  console.log(req.user);
-  next();
-});
-
 app.use("/", routes);
 app.use("/users", userRoutes);
 app.use("/cars", carRoutes);

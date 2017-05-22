@@ -8,7 +8,7 @@ const isLoggedIn = (req, res, next) => {
   res.redirect("/");
 };
 
-router.get("/", (req, res) => {
+router.get("/", isLoggedIn, (req, res) => {
   res.render("index", { user: req.user});
 });
 
@@ -35,6 +35,7 @@ router.post("/register", (req, res) => {
 //Login route
 router.post("/login", passport.authenticate("local"), (req, res) => {
   console.log("Successfully logged in!");
+  console.log(req.user.username + "\n" + req.user.email);
   res.redirect("/");
 });
 
