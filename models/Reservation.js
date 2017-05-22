@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ReservedCar = new Schema({
+const Reservation = new Schema({
   carID: {type: String, required: [true, "You need the enter the ID of the reserved car."]},
   userID: {type: String, required: [true, "You need to enter the ID of the user who reserved the car"]},
   dateFrom: {type: Date, required: [true, "You need to enter the date of when the car was reserved. Format: yyyy-mm-dd"]},
@@ -12,4 +12,4 @@ const ReservedCar = new Schema({
   totalPrice: {type: Number}
 });
 
-module.exports = mongoose.model("ReservedCar", ReservedCar);
+module.exports = mongoose.model("Reservation", Reservation);

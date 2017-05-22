@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const mongodb = require("mongodb");
 const passport = require("passport");
-const ReservedCar = require("../models/ReservedCar.js");
+const Reservation = require("../models/Reservation.js");
 const Car = require("../models/Car.js");
 const User = require("../models/User.js");
 
@@ -11,45 +11,47 @@ const isLoggedIn = (req, res, next) => {
   res.redirect("/");
 };
 
-router.post("/rentcar", isLoggedIn, (req, res) => {
-  let reservedCar = new ReservedCar(req.body);
+router.post("/rentcar", (req, res) => {
+  let reservation = new Reservation(req.body);
+  let selectedCar;
+  let selectedUser;
 
-  reservedCar.save((error, result) => {
-    if(error) res.send(error);
+  Car.find(
+    {
+      _id: reservation.carID
+    },
+    (error, result) => {
+      if(error) res.send(error);
+      selectedCar = result;
+      console.log(selectedCar);
+      
+      User.find(
+        {
+          _id: reservation.userID
+        },
+        (error, result) => {
+          if(error) res.send(error);
+          selectedUser = result;
+          console.log(selectedUser);
 
-    let serverResponse = result;
-    let selectedCar;
-    let pricePerDay = serverResponse.pricePerDay;
+          let pricePerDay = selectedCar[0].pricePerDay;
 
-    Car.find(
-      {
-        _id: new mongodb.ObjectID(serverResponse.carID)
-      },
-      (error, result) => {
-        if(error) res.send(error);
-        selectedCar = result;
-        return selectedCar;
-      });
+          if(selectedCar[0].roofRack === true){
+            pricePerDay += 50;
+          }
 
-    if(serverResponse.roofRack === true){
-      pricePerDay += 200;
-      return pricePerDay;
-    }
+          if(selectedCar[0].towbar === true){
+            pricePerDay += 100;
+          }
 
-    if(serverResponse.towBar === true){
-      pricePerDay += 150;
-      return pricePerDay;
-    }
+          reservation.pricePerDay = pricePerDay;
 
-    pricePerDay += selectedCar.pricePerDay;
+          reservation.save((error, result) => {
+            res.send(result);
+          });
 
-    console.log(pricePerDay);
-
-    selectedCar.available = false;
-
-    res.send(serverResponse);
-
-  });
+        });
+    });
 });
 
 module.exports = router;
