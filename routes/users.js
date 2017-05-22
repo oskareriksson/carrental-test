@@ -39,11 +39,19 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
   res.redirect("/");
 });
 
+//------- Routes below this line requires a login to be used -------
+
 router.get("/all", isLoggedIn, (req, res) => {
   User.find({}, "email firstName lastName phoneNumber", (error, result) => {
     if(error) res.send(error);
     res.json(result);
   });
+});
+
+router.get("/logout", isLoggedIn, (req, res) => {
+  req.logout();
+  console.log("Successfully logged out!");
+  res.redirect("/");
 });
 
 module.exports = router;
