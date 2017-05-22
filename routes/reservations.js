@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const mongodb = require("mongodb");
 const passport = require("passport");
 const Reservation = require("../models/Reservation.js");
 const Car = require("../models/Car.js");
