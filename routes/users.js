@@ -8,10 +8,6 @@ const isLoggedIn = (req, res, next) => {
   res.redirect("/");
 };
 
-router.get("/", isLoggedIn, (req, res) => {
-  res.render("index", { user: req.user});
-});
-
 //Registering a new user and saving the user to database
 router.post("/register", (req, res) => {
   User.register(new User(
@@ -40,6 +36,11 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 });
 
 //------- Routes below this line requires a login to be used -------
+
+//The index you get redirected to with the user set when you've logged in
+router.get("/", isLoggedIn, (req, res) => {
+  res.render("index", { user: req.user});
+});
 
 //Lists all registered user in database, leaving out their password
 router.get("/all", isLoggedIn, (req, res) => {
