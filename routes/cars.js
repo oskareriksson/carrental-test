@@ -15,6 +15,14 @@ router.get("/", (req, res) => {
   });
 });
 
+//Gets all cars in the collection with property "available = true", i.e available for rent
+router.get("/available", (req, res) => {
+  Car.find({"available": true}, (error, result) => {
+    if(error) res.send(error);
+    res.json(result);
+  });
+});
+
 //------- Routes below this line requires a login to be used -------
 
 //Adds a car to collection
