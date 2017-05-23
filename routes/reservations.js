@@ -10,6 +10,14 @@ const isLoggedIn = (req, res, next) => {
   res.redirect("/");
 };
 
+//Lists all reservations in database
+router.get("/", (req, res) => {
+  Reservation.find({}, (error, result) => {
+    if(error) res.send(error);
+    res.json(result);
+  });
+});
+
 //Adds a reservation to "reservations in database"
 router.post("/rentcar", (req, res) => {
   let reservation = new Reservation(req.body);
