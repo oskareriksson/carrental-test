@@ -10,6 +10,7 @@ const isLoggedIn = (req, res, next) => {
   res.redirect("/");
 };
 
+//Adds a reservation to "reservations in database"
 router.post("/rentcar", (req, res) => {
   let reservation = new Reservation(req.body);
   let selectedCar;
@@ -61,6 +62,34 @@ router.post("/rentcar", (req, res) => {
             res.send(result);
           });
 
+        });
+    });
+});
+
+//Cancels and removes a reservation from the database
+router.delete("/cancel/:id", (req, res) => {
+  let selectedCarID;
+
+  Reservation.find(
+    { _id: req.params.id },
+    (error, result) => {
+      if(error) res.send(error);
+      selectedCarID = result[0].carID;
+
+      Car.findByIdAndUpdate(
+        { _id: selectedCarID },
+        {
+          $set: {
+            available: true //Sets the cars "available" property back to true when we cancel the reservation
+          }
+        },
+        (error, result) => {
+          if(error) res.send(error);
+
+          Reservation.findByIdAndRemove(req.params.id, (error, result) => {
+            if(error) res.send(error);
+            res.send("Reservation successfully removed!")
+          });
         });
     });
 });
