@@ -41,6 +41,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 
 //------- Routes below this line requires a login to be used -------
 
+//Lists all registered user in database, leaving out their password
 router.get("/all", isLoggedIn, (req, res) => {
   User.find({}, "email firstName lastName phoneNumber", (error, result) => {
     if(error) res.send(error);
@@ -48,6 +49,7 @@ router.get("/all", isLoggedIn, (req, res) => {
   });
 });
 
+//Logout route
 router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();
   console.log("Successfully logged out!");
